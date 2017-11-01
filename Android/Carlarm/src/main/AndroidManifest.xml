@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sonpham.carlarm"
+    android:installLocation="internalOnly">
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application android:name="sonpham.carlarm.App" android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+        <activity android:name="sonpham.carlarm.MainActivity"
+                  android:theme="@style/AppTheme"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="sonpham.carlarm.SettingsActivity"
+            android:label="@string/settings">
+        </activity>
+
+        <activity android:name="sonpham.carlarm.alarm.AlarmActivity" android:theme="@style/AppTheme" />
+        <receiver android:name="sonpham.carlarm.alarm.AlarmReceiver" />
+        <receiver android:name="sonpham.carlarm.alarm.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <service android:name="sonpham.carlarm.alarm.AlarmService" />
+    </application>
+</manifest>
