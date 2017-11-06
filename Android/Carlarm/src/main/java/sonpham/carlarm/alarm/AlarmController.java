@@ -28,6 +28,8 @@ public class AlarmController implements Store.Middleware<Action, State> {
     @Override
     public void dispatch(Store<Action, State> store, Action action, Store.NextDispatcher<Action> next) {
         if (action.type == Actions.Alarm.ON) {
+            // The first time alarm controller is dispatched,
+            // set the alarm to the next minute.
             Calendar c = Calendar.getInstance();
             c.add(Calendar.MINUTE, 1);
             store.dispatch(new Action<>(Actions.Alarm.SET_HOUR, c.get(Calendar.HOUR)));
@@ -35,6 +37,7 @@ public class AlarmController implements Store.Middleware<Action, State> {
             store.dispatch(new Action<>(Actions.Alarm.SET_AM_PM, c.get(Calendar.AM_PM) == 0));
         }
         next.dispatch(action);
+
         if (action.type instanceof Actions.Alarm) {
             Actions.Alarm type = (Actions.Alarm) action.type;
             switch (type) {
@@ -58,6 +61,7 @@ public class AlarmController implements Store.Middleware<Action, State> {
         }
     }
 
+    /** Reset alarm to the next day */
     private void restartAlarm(State state) {
         Calendar c = state.alarm().nextAlarm();
         Intent intent = new Intent(mContext, AlarmReceiver.class);
@@ -85,6 +89,7 @@ public class AlarmController implements Store.Middleware<Action, State> {
         }
     }
 
+    /** Turn off alarm */
     private void cancelAlarm() {
         Intent intent = new Intent(mContext, AlarmReceiver.class);
         PendingIntent sender = PendingIntent.getBroadcast(mContext, 0, intent, 0);
@@ -99,6 +104,7 @@ public class AlarmController implements Store.Middleware<Action, State> {
         }
     }
 
+    /** Alarm start ringing */
     private void wakeupAlarm() {
         PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl =
@@ -109,6 +115,7 @@ public class AlarmController implements Store.Middleware<Action, State> {
         mContext.startService(new Intent(mContext, AlarmService.class));
     }
 
+    /** Alarm stop ringing */
     private void dismissAlarm() {
         mContext.stopService(new Intent(mContext, AlarmService.class));
     }

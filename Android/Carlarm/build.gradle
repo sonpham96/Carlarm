@@ -4,11 +4,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+//        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 'android-25'
@@ -54,5 +54,5 @@ dependencies {
     provided 'org.immutables:value:2.1.14'
 }
 
-apply from: 'https://raw.github.com/trikita/gradle-android-signing/master/gradle-android-signing.gradle'
+//apply from: 'https://raw.github.com/trikita/gradle-android-signing/master/gradle-android-signing.gradle'
 

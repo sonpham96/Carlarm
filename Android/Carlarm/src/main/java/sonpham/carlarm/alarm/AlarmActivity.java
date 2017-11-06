@@ -74,7 +74,7 @@ public class AlarmActivity extends Activity {
             public void view() {
                 Theme.materialIcon(() -> {
                     size(FILL, FILL);
-                    text("\ue857"); // "alarm off"
+                    text("\ue855"); // ALARM ON
                     textColor(Theme.get(App.getState().settings().theme()).accentColor);
                     textSize(dip(128));
                     backgroundColor(Theme.get(App.getState().settings().theme()).backgroundColor);
@@ -132,8 +132,17 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        BluetoothDevice btDevice = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(address);
-        new ConnectBT().execute(btDevice);
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (bluetoothAdapter == null) {
+            Log.e(TAG, "onResume: Bluetooth is not supported");
+            finish();
+        }
+
+        if (!bluetoothAdapter.isEnabled()) {
+            bluetoothAdapter.enable();
+            BluetoothDevice btDevice = bluetoothAdapter.getRemoteDevice(address);
+            new ConnectBT().execute(btDevice);
+        }
     }
 
     @Override
