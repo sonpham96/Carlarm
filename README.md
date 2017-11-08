@@ -1,6 +1,6 @@
 Carlarm
 =======
-Practice on Software Engineering | CC14KHMT | 2017/09/09 - 2017/09/15 | Bach Khoa University (BKU)
+Practice on Software Engineering | CC14KHMT | 2017/09/08 - 2017/09/15 | Bach Khoa University (BKU)
 
 Description
 -----------
