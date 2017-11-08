@@ -5,28 +5,28 @@
 /* First motor */
 #define pA1   4
 #define pB1   5
-#define pV1   6        // First motor Vref
+#define pV1   6         // First motor Vref
 /* Second motor */
 #define pA2   7
 #define pB2   8
-#define pV2   11       // Second motor Vref
-#define MAX_SPEED 255  // Max speed for the motors
+#define pV2   11        // Second motor Vref
+#define MAX_SPEED 255   // Max speed for the motors
 
 #define MIN_DISTANCE 25
 #define SAFE_DISTANCE 35
 
 /* Distance sensors */
-#define pIR         A5 // IR sensor pin
-#define pUltTrig    12 // Ultrasonic sensor trigger pin
-#define pUltEcho    A4 // Ultrasonic sensor echo pin
+#define pIR         A5  // IR sensor pin
+#define pUltTrig    12  // Ultrasonic sensor trigger pin
+#define pUltEcho    A4  // Ultrasonic sensor echo pin
 #define SCAN_NUMBER 10
 
-#define pBtn    2 // Button pin
+#define pBtn    2       // Button pin
 
 /* Servo */
-#define pServ   3 // Servo pin
+#define pServ   3       // Servo pin
 #define MAX_ARC 100
-Servo myservo;  // create servo object to control a servo
+Servo myservo;          // create servo object to control a servo
 
 SoftwareSerial BTSerial(9, 10); // RX | TX
 char data = 0;                  // Variable for storing received data
@@ -44,14 +44,14 @@ void down(const int& pinA, const int& pinB) {
   digitalWrite(pinB, LOW);
 }
 
-void break_(const int& pinA, const int& pinB) {
+void brake(const int& pinA, const int& pinB) {
   digitalWrite(pinA, HIGH);
   digitalWrite(pinB, HIGH);
 }
 
 void stop_motor() {
-  break_(pA1, pB1);
-  break_(pA2, pB2);
+  brake(pA1, pB1);
+  brake(pA2, pB2);
 }
 
 void set_speed(const int& sp) {
@@ -71,12 +71,12 @@ void move_backward() {
 
 void move_left() {
   up(pA1, pB1);
-  break_(pA2, pB2);
+  brake(pA2, pB2);
 }
 
 void move_right() {
   up(pA2, pB2);
-  break_(pA1, pB1);
+  brake(pA1, pB1);
 }
 
 int average_value() {
@@ -95,8 +95,6 @@ int average_value() {
     digitalWrite(pUltTrig, LOW);
     int sensor_value = pulseIn(pUltEcho, HIGH);
     int distance_cm = sensor_value * 0.034 / 2;
-//    Serial.print("Debug: ");
-//    Serial.println(distance_cm);
     if (distance_cm >= 0)
       sum = sum + distance_cm;
   }
@@ -124,8 +122,9 @@ int rotate_and_check(const int nPos, const int delay_time) {
 }
 
 void check_and_move() {
-  int distance = average_value(); // Convert readings to distance(cm)
-  Serial.println(distance); // Print the sensor value
+  int distance = average_value();   // Convert readings to distance(cm)
+  Serial.println(distance);         // Print the sensor value
+  
   if (distance <= MIN_DISTANCE) {
     Serial.println("Obstacle ahead");
     stop_motor();
@@ -185,12 +184,9 @@ void setup() {
 
   // Attach the servo on pin pServ to the servo object
   myservo.attach(pServ);
-
-
 }
 
 void loop() {
-  
   if (BTSerial.available()) {
     data = BTSerial.read();
     BTSerial.write("Received ");
