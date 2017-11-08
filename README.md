@@ -15,7 +15,7 @@ Features
 * No snooze button, turn it off by pressing the switch on the car, or disconnecting Bluetooth
 * Change theme and ringtone.
 
-### 2. Lightning McQueen, the Arduino car
+### 2. McQueen, the Arduino car
 * The alarm itself
 * Run around
 * Avoid obstacle
