@@ -3,13 +3,13 @@
 #include <SoftwareSerial.h>
 
 /* First motor */
-#define pA1   4
-#define pB1   5
-#define pV1   6         // First motor Vref
+#define pA1   3
+#define pB1   4
+#define pV1   5         // First motor Vref
 /* Second motor */
 #define pA2   7
 #define pB2   8
-#define pV2   11        // Second motor Vref
+#define pV2   9         // Second motor Vref
 #define MAX_SPEED 255   // Max speed for the motors
 
 #define MIN_DISTANCE 25
@@ -24,11 +24,11 @@
 #define pBtn    2       // Button pin
 
 /* Servo */
-#define pServ   3       // Servo pin
+#define pServ   11       // Servo pin
 #define MAX_ARC 100
 Servo myservo;          // create servo object to control a servo
 
-SoftwareSerial BTSerial(9, 10); // RX | TX
+SoftwareSerial BTSerial(10, 6); // RX | TX
 char data = 0;                  // Variable for storing received data
 
 int buttonState = 0;
