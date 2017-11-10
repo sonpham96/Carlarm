@@ -28,7 +28,7 @@ Components
 You have to get them yourself:
 * An Android smartphone installed with Carlarm
 * A car chassis with 2 motors attached with 2 wheels
-* 1 Ultrasonic sensor SRF04 / 1 IR sensor Sharp GP2Y0A21YK
+* 1 Ultrasonic sensor HC-SR04 / 1 IR sensor Sharp GP2Y0A21YK
 * 2 Motor drivers Toshiba TA7291P
 * 1 Bluetooth module HC-05
 
